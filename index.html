@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Shravana Mungekar - MIS Executive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@ a{color:var(--c2);font-weight:700}
 strong{color:var(--ink)}
 :focus-visible{outline:3px solid var(--c4);outline-offset:2px}
 
-#sidebar{position:fixed;inset:0 auto 0 0;width:260px;background:var(--side);color:#fff;padding:32px 20px;display:flex;flex-direction:column;z-index:10}
+#sidebar{position:fixed;inset:0 auto 0 0;width:260px;background:var(--side);color:#fff;padding:32px 20px;display:flex;flex-direction:column;z-index:100}
 .avatar{width:64px;height:64px;border-radius:20px;background:#fff;color:#1e3a8a;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:1.5rem;transform:rotate(-6deg);box-shadow:0 6px 0 rgba(0,0,0,.18);margin-bottom:18px}
 .brand h2{margin:0 0 6px;font-family:var(--head);font-size:1.4rem;line-height:1.15;font-weight:800}
 .brand p{margin:0 0 26px;font-size:.85rem;opacity:.9}
@@ -118,7 +118,6 @@ h2.title em,.grad{font-style:normal;background:var(--grad);-webkit-background-cl
 .chip{--c:var(--c1);padding:7px 16px;border-radius:999px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);border:2px solid color-mix(in srgb,var(--c) 40%,transparent);font-size:.85rem;font-weight:700}
 .chip:nth-child(5n+2){--c:var(--c2)}.chip:nth-child(5n+3){--c:var(--c3)}.chip:nth-child(5n+4){--c:var(--c4)}.chip:nth-child(5n+5){--c:var(--c5)}
 
-
 .hl{font-size:1.02rem}
 .sechead{font-family:var(--head);font-weight:800;font-size:1.7rem;margin:44px 0 18px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -133,19 +132,84 @@ h2.title em,.grad{font-style:normal;background:var(--grad);-webkit-background-cl
 .copy{background:var(--surface);color:var(--c1);border:0;border-radius:999px;padding:11px 24px;font-weight:700;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.18)}
 footer{text-align:center;color:var(--muted);padding:30px 0 40px;font-size:.9rem}
 
-@media(max-width:1100px){.hero h1{font-size:3.2rem}.proj{grid-template-columns:70px 1fr}.proj .pimg,.proj:nth-child(even) .pimg{grid-column:2;grid-row:2;order:0}.proj:nth-child(even) .ptext{grid-column:2;grid-row:1}}
+@media(max-width:1100px){
+  .hero h1{font-size:3.2rem}
+  .proj{grid-template-columns:70px 1fr}
+  .proj .pimg,.proj:nth-child(even) .pimg{grid-column:2;grid-row:2;order:0}
+  .proj:nth-child(even) .ptext{grid-column:2;grid-row:1}
+}
+
+/* --- NEW APP-LIKE MOBILE VIEW --- */
 @media(max-width:850px){
-  #sidebar{width:72px;padding:20px 10px;align-items:center}
-  .brand h2,.brand p,.side-foot{display:none}
-  .avatar{width:48px;height:48px;font-size:1.1rem;margin-bottom:20px;border-radius:16px}
-  .nav a{font-size:0;padding:5px;justify-content:center}.nav a:hover{transform:none}
-  .nav a span{width:40px;height:40px;font-size:1.15rem}
-  .theme-btn{top:10px;right:10px;padding:8px 14px}
-  main{margin-left:72px;padding:0 16px}
-  .hero,.about,.two,.stats,.grid3,.contact .grid{grid-template-columns:1fr}
-  .hero h1{font-size:2.6rem}.portrait{max-width:240px;font-size:4rem}
-  .proj,.proj:nth-child(even){grid-template-columns:1fr}.proj .num,.proj .ptext,.proj .pimg,.proj:nth-child(even) .num,.proj:nth-child(even) .ptext,.proj:nth-child(even) .pimg{grid-column:1;grid-row:auto}
-  h2.title{font-size:2.1rem}.contact{padding:28px}
+  #sidebar{
+    inset: auto 0 0 0; /* Pin to the bottom */
+    width: 100%;
+    padding: 10px 10px calc(10px + env(safe-area-inset-bottom, 0px)); /* Safe area padding for iOS */
+    flex-direction: row;
+    justify-content: space-between;
+    background: var(--side);
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.4); /* Strong shadow for depth */
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .brand, .side-foot, .avatar { display: none !important; }
+  .nav {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    gap: 4px;
+  }
+  .nav a {
+    flex-direction: column; /* Stack icon and text */
+    font-size: 0.65rem; /* Small app-like text */
+    padding: 6px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.6);
+    background: transparent;
+    border-radius: 12px;
+    flex: 1;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .nav a:hover { background: transparent; transform: none; }
+  .nav a span {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    background: transparent;
+    transition: 0.2s ease;
+  }
+  .nav a.active {
+    background: transparent;
+    color: #fff;
+    font-weight: 700;
+  }
+  .nav a.active span {
+    background: var(--grad); /* Makes the active icon pop like a native app */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  
+  main {
+    margin-left: 0;
+    padding: 0 16px 110px 16px; /* High bottom padding so content isn't hidden behind the nav bar */
+  }
+  .theme-btn { top: 12px; right: 16px; padding: 8px 14px; font-size: 0.8rem; }
+  
+  /* Layout overrides for mobile */
+  .hero, .about, .two, .stats, .grid3, .contact .grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.6rem; margin-top: 24px; }
+  .portrait { max-width: 240px; font-size: 4rem; margin: 0 auto; }
+  .hero { text-align: center; padding-top: 70px; }
+  
+  .proj, .proj:nth-child(even) { grid-template-columns: 1fr; }
+  .proj .num, .proj .ptext, .proj .pimg, 
+  .proj:nth-child(even) .num, .proj:nth-child(even) .ptext, .proj:nth-child(even) .pimg {
+    grid-column: 1; grid-row: auto;
+  }
+  h2.title { font-size: 2.1rem; }
+  .contact { padding: 28px; }
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
@@ -187,10 +251,10 @@ footer{text-align:center;color:var(--muted);padding:30px 0 40px;font-size:.9rem}
     <p>MIS Executive</p>
   </div>
   <nav class="nav">
-    <a href="#about" class="active"><span>✨</span>About me</a>
+    <a href="#about" class="active"><span>✨</span>About</a>
     <a href="#projects"><span>🚀</span>Projects</a>
     <a href="#experience"><span>💼</span>Experience</a>
-    <a href="#skills"><span>🎯</span>Skills &amp; Education</a>
+    <a href="#skills"><span>🎯</span>Skills</a>
     <a href="#contact"><span>✉️</span>Contact</a>
   </nav>
   <div class="side-foot">Mumbai, India</div>
@@ -301,7 +365,7 @@ footer{text-align:center;color:var(--muted);padding:30px 0 40px;font-size:.9rem}
       <div class="card" style="--c:var(--c5)"><h3>Finance &amp; Operations</h3><div class="chips" style="margin-top:12px"><span class="chip">MIS Reporting</span><span class="chip">Tally ERP</span><span class="chip">Reconciliation</span><span class="chip">Expense Management</span></div></div>
       <div class="card" style="--c:var(--c4)"><h3>Analytics</h3><div class="chips" style="margin-top:12px"><span class="chip">KPI Tracking</span><span class="chip">Data Cleaning</span><span class="chip">Data Transformation</span><span class="chip">Performance Analysis</span></div></div>
       <div class="card" style="--c:var(--c1)"><h3>Soft Skills</h3><div class="chips" style="margin-top:12px"><span class="chip">Problem Solving</span><span class="chip">Analytical Thinking</span><span class="chip">Communication</span></div></div>
-      <div class="card" style="--c:var(--c2)"><h3>Languages</h3><div class="chips" style="margin-top:12px"><span class="chip">English</span><span class="chip">Hindi</span><span class="chip">Marathi</span
+      <div class="card" style="--c:var(--c2)"><h3>Languages</h3><div class="chips" style="margin-top:12px"><span class="chip">English</span><span class="chip">Hindi</span><span class="chip">Marathi</span></div></div>
     </div>
     <h3 class="sechead">Education</h3>
     <div class="grid3">
